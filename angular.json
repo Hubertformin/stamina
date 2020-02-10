@@ -25,9 +25,16 @@
             "aot": false,
             "assets": [
               "src/favicon.ico",
-              "src/assets"
+              "src/assets",
+              {
+                "glob": "**/*",
+                "input": "./node_modules/@ant-design/icons-angular/src/inline-svg/",
+                "output": "/assets/"
+              }
             ],
             "styles": [
+              "./node_modules/ng-zorro-antd/ng-zorro-antd.min.css",
+              "src/assets/vendor/tailwind.min.css",
               "src/styles.scss"
             ],
             "scripts": []
@@ -67,7 +74,9 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "postScheduler:build"
+            "browserTarget": "postScheduler:build",
+            "sslKey": "./cert/server.key",
+            "sslCert": "./cert/server.crt"
           },
           "configurations": {
             "production": {
@@ -93,6 +102,7 @@
               "src/assets"
             ],
             "styles": [
+              "./node_modules/ng-zorro-antd/ng-zorro-antd.min.css",
               "src/styles.scss"
             ],
             "scripts": []
@@ -122,8 +132,13 @@
               "devServerTarget": "postScheduler:serve:production"
             }
           }
+        },
+        "deploy": {
+          "builder": "@angular/fire:deploy",
+          "options": {}
         }
       }
-    }},
+    }
+  },
   "defaultProject": "postScheduler"
 }

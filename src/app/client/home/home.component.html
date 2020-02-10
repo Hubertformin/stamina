@@ -1,0 +1,53 @@
+<section id="app">
+  <!--  toolbar -->
+  <section id="toolbar">
+    <nav class="w-full h-full shadow flex justify-between px-8" style="align-items: center;">
+      <h1 class="text-xl w-auto text-blue-600 font-black">Stamina</h1>
+      <ul class="nav-links">
+        <li *ngIf="authUser"><i nz-icon nzType="user"></i>&nbsp;{{authUser.email}}</li>
+        <li><button nz-button (click)="auth.logOut()" nzType="link">Log out</button></li>
+      </ul>
+    </nav>
+  </section>
+  <!--  side nav -->
+  <section id="sideNav" class="h-full">
+    <div class="wrapper h-full">
+      <ul nz-menu nzMode="inline" class="h-full" nzTheme="light">
+        <li nz-menu-item nzSelected>
+          <i nz-icon nzType="mail"></i>
+          <span>Schedule</span>
+        </li>
+      </ul>
+    </div>
+  </section>
+  <!-- main body -->
+  <main>
+    <router-outlet></router-outlet>
+  </main>
+  <!-- end of body -->
+</section>
+
+<!--show modal is social account not added-->
+<nz-modal [(nzVisible)]="!socialLoggedIn"
+          [nzTitle]="modalTitle"
+          [nzContent]="modalContent"
+          [nzCancelDisabled]="true"
+          [nzFooter]="modalFooter">
+  <ng-template #modalTitle>
+  </ng-template>
+
+  <ng-template #modalContent>
+    <div class="h-64 text-center">
+      <h1 class="text-5xl">
+        <i nz-icon nzType="instagram" nzTheme="outline"></i>
+      </h1>
+      <h1>No pages added, login with Facebook</h1>
+    </div>
+  </ng-template>
+
+  <ng-template #modalFooter>
+    <div class="text-center">
+      <button (click)="loginWithFB()" nz-button nzType="primary">Add page</button>
+    </div>
+  </ng-template>
+</nz-modal>

@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "stamina-enchird": {
+      "hosting": {
+        "postScheduler": [
+          "stamina-enchird"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "stamina-enchird"
+  }
+}

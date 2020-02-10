@@ -1,0 +1,29 @@
+
+#app {
+  height: 100%;
+  width: 100%;
+}
+
+main {
+  position: fixed;
+  top: 56px;
+  left: 240px;
+  right: 0;
+  bottom: 0;
+}
+// wrapper
+.wrapper {
+  width: 240px;
+}
+
+button {
+  margin-bottom: 12px;
+}
+
+ul.nav-links {
+  list-style-type: none;
+  li {
+    display: inline-block;
+    padding: 0 15px;
+  }
+}

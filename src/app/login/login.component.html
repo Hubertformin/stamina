@@ -1,0 +1,29 @@
+<section class="page w-full h-full">
+  <div class="pg-container w-full h-full">
+    <div class="form-group px-6 md:px-4">
+      <h1 class="text-blue-600 text-center text-4xl font-hairline">Stamina scheduler</h1>
+      <form nz-form [formGroup]="loginForm" class="login-form" (ngSubmit)="submitForm()">
+        <nz-form-item>
+          <nz-form-control nzErrorTip="Please input your email!">
+            <nz-input-group nzPrefixIcon="user">
+              <input type="text" nz-input formControlName="email" placeholder="Email" />
+            </nz-input-group>
+          </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+          <nz-form-control nzErrorTip="Please input your Password!">
+            <nz-input-group nzPrefixIcon="lock">
+              <input type="password" nz-input formControlName="password" placeholder="Password" />
+            </nz-input-group>
+          </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+          <nz-form-control>
+            <button nz-button [nzLoading]="loading" class="w-full" [nzType]="'primary'">Log in</button>
+          </nz-form-control>
+        </nz-form-item>
+
+      </form>
+    </div>
+  </div>
+</section>

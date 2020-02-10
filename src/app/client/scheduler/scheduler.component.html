@@ -1,0 +1,119 @@
+<section id="header">
+  <nz-page-header nzTitle="Schedule Post">
+    <nz-breadcrumb nz-page-header-breadcrumb>
+      <nz-breadcrumb-item>Home</nz-breadcrumb-item>
+      <nz-breadcrumb-item>Scheduler</nz-breadcrumb-item>
+    </nz-breadcrumb>
+  </nz-page-header>
+</section>
+
+<section id="calender">
+  <div *ngIf="selectedDate" class="action-buttons pt-3">
+    <button (click)="isCreateModalVisible = true" nz-button nzType="primary" class="mr-4">+ Add schedule</button>
+    <button nz-button nzType="primary">View schedules</button>
+  </div>
+  <nz-calendar
+    (nzSelectChange)="onDateSelected($event)"
+  >
+    <ul *nzDateCell="let date" class="events">
+      <ng-container [ngSwitch]="date.getDate()">
+        <ng-container *ngSwitchCase="8">
+          <li *ngFor="let item of listDataMap.eight">
+            <nz-badge [nzStatus]="item.type" [nzText]="item.content"></nz-badge>
+          </li>
+        </ng-container>
+        <ng-container *ngSwitchCase="10">
+          <li *ngFor="let item of listDataMap.ten">
+            <nz-badge [nzStatus]="item.type" [nzText]="item.content"></nz-badge>
+          </li>
+        </ng-container>
+        <ng-container *ngSwitchCase="11">
+          <li *ngFor="let item of listDataMap.eleven">
+            <nz-badge [nzStatus]="item.type" [nzText]="item.content"></nz-badge>
+          </li>
+        </ng-container>
+      </ng-container>
+    </ul>
+    <!--    <ng-container *nzMonthCell="let month">-->
+    <!--      <div *ngIf="getMonthData(month) as monthData" class="notes-month">-->
+    <!--        <section>{{ monthData }}</section>-->
+    <!--        <span>Backlog number</span>-->
+    <!--      </div>-->
+    <!--    </ng-container>-->
+  </nz-calendar>
+</section>
+
+<!-- modals -->
+<nz-modal
+  nzWrapClassName="vertical-center-modal"
+  [(nzVisible)]="isCreateModalVisible"
+  [nzFooter]="modalFooter"
+  (nzOnCancel)="isCreateModalVisible = false"
+  [nzTitle]="'Schedule Post'">
+
+  <section class="body px-3">
+    <div *ngIf="selectedDate" class="alert border-blue-600 text-center py-2 mb-4 px-3 bg-blue-100 rounded">
+      {{'Date: ' + selectedDate | date: 'fullDate'}} {{time_control.value ? ' at ' + (time_control.value | date: 'h:mm a') : ''}}
+    </div>
+
+    <form nz-form [formGroup]="createPostForm">
+
+      <nz-form-item class="mb-2">
+        <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired>Time</nz-form-label>
+        <nz-form-control [nzSm]="18" [nzXs]="24">
+          <nz-time-picker nzFormat="HH:mm" formControlName="time"></nz-time-picker>
+        </nz-form-control>
+      </nz-form-item>
+
+      <nz-form-item class="mb-3">
+        <nz-form-label [nzSm]="6" [nzXs]="24">Location</nz-form-label>
+        <nz-form-control [nzSm]="18" [nzXs]="24">
+          <nz-select nzShowSearch nzAllowClear nzPlaceHolder="Type and select location" formControlName="locationID">
+            <nz-option nzLabel="Jack" nzValue="jack"></nz-option>
+            <nz-option nzLabel="Lucy" nzValue="lucy"></nz-option>
+            <nz-option nzLabel="Tom" nzValue="tom"></nz-option>
+          </nz-select>
+        </nz-form-control>
+      </nz-form-item>
+      <!--input file-->
+      <input type="file" style="display: none;" (change)="onFileSelected($event)" #inputImages accept="image/jpeg" />
+      <!-- container-->
+      <div *ngIf="importedImages.length === 0" (click)="inputImages.click()" class="upload-box cursor-pointer border mb-4 border-blue-600 pb-6 rounded bg-gray-100 text-center flex justify-center flex-col" style="align-items: center;">
+        <span class="text-blue-600 text-4xl"><i nz-icon nzType="cloud-upload"></i></span>
+        <h1>Click to import images</h1>
+        <p>
+          For purposes specified by Instagram, only JPG images are allowed.
+        </p>
+      </div>
+
+      <div *ngIf="importedImages.length > 0">
+        <div class="importedImages mb-2 bg-gray-100 border-gray-400 rounded overflow-x-auto p-3">
+<!--        <span (click)="inputImages.click()" class="add text-3xl w-32 h-32 flex justify-center border bg-white mr-2" style="align-items: center;">-->
+<!--          <i nz-icon nzType="plus"></i>-->
+<!--        </span>-->
+          <!--images-->
+          <span *ngFor="let img of importedImages" class="img-con mr-2 h-32 w-32 border">
+          <img [src]="img | imgUrl" [alt]="img.name">
+        </span>
+        </div>
+        <div class="py-2 px-6 text-right">
+          <button (click)="inputImages.click()" nz-button nzType="primary">+ Add image</button>
+        </div>
+      </div>
+
+      <nz-form-item class="mb-0">
+        <nz-form-label [nzSm]="6" [nzXs]="24">Caption</nz-form-label>
+        <nz-form-control [nzSm]="18" [nzXs]="24">
+          <textarea maxlength="2200" nz-input rows="5"></textarea>
+        </nz-form-control>
+      </nz-form-item>
+
+    </form>
+
+  </section>
+
+  <ng-template #modalFooter>
+    <button nz-button nzType="default" (click)="isCreateModalVisible = false">Cancel</button>
+    <button nz-button nzType="primary" (click)="onSubmitPost()" [nzLoading]="isAddingPostLoading">Submit</button>
+  </ng-template>
+</nz-modal>

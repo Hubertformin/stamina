@@ -3,11 +3,13 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
-    "build": "ng build",
+    "start": "ng serve --ssl",
+    "build": "ng build --prod",
     "test": "ng test",
     "lint": "ng lint",
-    "e2e": "ng e2e"
+    "e2e": "ng e2e",
+    "uglify:tailwind": "uglifycss src/tailwind/tailwind.css --output src/assets/vendor/tailwind.min.css",
+    "tailwind:build": "npx tailwindcss build src/tailwind/source.css -o src/tailwind/tailwind.css && npm run uglify:tailwind"
   },
   "private": true,
   "dependencies": {
@@ -15,11 +17,20 @@
     "@angular/common": "~8.2.13",
     "@angular/compiler": "~8.2.13",
     "@angular/core": "~8.2.13",
+    "@angular/fire": "^5.4.2",
     "@angular/forms": "~8.2.13",
     "@angular/platform-browser": "~8.2.13",
     "@angular/platform-browser-dynamic": "~8.2.13",
     "@angular/router": "~8.2.13",
+    "@ngx-loading-bar/core": "^4.2.0",
+    "@ngx-loading-bar/router": "^4.2.0",
+    "angularx-social-login": "^2.2.1",
+    "firebase": ">= 5.5.7 <8",
+    "i": "^0.3.6",
+    "ng-zorro-antd": "^8.5.2",
+    "npm": "^6.13.7",
     "rxjs": "~6.4.0",
+    "tailwindcss": "^1.2.0",
     "tslib": "^1.10.0",
     "zone.js": "~0.9.1"
   },
@@ -42,6 +53,11 @@
     "protractor": "~5.4.0",
     "ts-node": "~7.0.0",
     "tslint": "~5.15.0",
-    "typescript": "~3.5.3"
+    "typescript": "~3.5.3",
+    "@angular-devkit/architect": "<0.900 || ^0.900.0-0 || ^9.0.0-0",
+    "firebase-tools": "^7.12.0",
+    "fuzzy": "^0.1.3",
+    "inquirer": "^6.2.2",
+    "inquirer-autocomplete-prompt": "^1.0.1"
   }
 }

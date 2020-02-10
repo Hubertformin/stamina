@@ -1,0 +1,63 @@
+#header {
+  height: 89px;
+}
+#calender {
+  height: calc(100% - 89px);
+  overflow-y: auto;
+  position: relative;
+  .action-buttons {
+    position: absolute;
+    top: 0;
+    left: 1rem;
+  }
+}
+
+.events {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.events .ant-badge-status {
+  overflow: hidden;
+  white-space: nowrap;
+  width: 100%;
+  text-overflow: ellipsis;
+  font-size: 12px;
+}
+
+.notes-month {
+  text-align: center;
+  font-size: 28px;
+}
+
+.notes-month section {
+  font-size: 28px;
+}
+
+.importedImages {
+  white-space: nowrap;
+  width: 100%;
+  img, span {
+    display: inline-flex;
+  }
+  .img-con {
+    overflow: hidden;
+    img {
+      min-width: 100%;
+      min-height: 100%;
+      height: auto;
+      width: auto;
+    }
+  }
+}
+
+::ng-deep .vertical-center-modal {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+::ng-deep .vertical-center-modal .ant-modal {
+  top: 0;
+}
